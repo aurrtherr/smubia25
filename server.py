@@ -69,14 +69,14 @@ def analyze():
                 content = file.read().decode('utf-8')
                 extract_knowledge_graph(content)
                 # return jsonify({"type": "file", "content": escape(content)})
-                return 
+                return jsonify({'Summary': "Summary Here"})
             # Process .pdf files
             elif file.filename.endswith('.pdf'):
                 content = extract_text_from_pdf(file)
                 extract_knowledge_graph(content)
                 if content:
                     # return jsonify({"type": "file", "content": escape(content)})
-                    return
+                    return jsonify({'Summary': "Summary Here"})
                 return jsonify({"error": "Failed to extract text from PDF"}), 500
 
         # Handle text input
@@ -85,7 +85,7 @@ def analyze():
             text = request.form['text']
             extract_knowledge_graph(text)
             # return jsonify({"type": "text", "content": escape(text)})
-            return
+            return jsonify({'Summary': "Summary Here"})
 
         # Handle URL input (web scraping)
         elif 'url' in request.form:
@@ -98,7 +98,7 @@ def analyze():
             extract_knowledge_graph(extracted_text)
             if extracted_text:
                 # return jsonify({"type": "url", "content": escape(extracted_text)})
-                return
+                return jsonify({'Summary': "Summary Here"})
             return jsonify({"error": "Failed to extract text from URL"}), 500
 
         return jsonify({"error": "No valid input provided."}), 400
