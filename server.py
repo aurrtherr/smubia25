@@ -59,7 +59,7 @@ def analyze():
     try:
         # Handle file upload
         if 'file' in request.files:
-            print("[HANDLE FILE]")
+            logging.info("[HANDLE FILE]")
             file = request.files['file']
             # Process .txt files
             if file.filename.endswith('.txt'):
@@ -76,14 +76,14 @@ def analyze():
 
         # Handle text input
         elif 'text' in request.form:
-            print("[TEXT INPUT]")
+            logging.info("[TEXT INPUT]")
             text = request.form['text']
             extract_knowledge_graph(text)
             return jsonify({"type": "text", "content": escape(text)})
 
         # Handle URL input (web scraping)
         elif 'url' in request.form:
-            print("[HANDLE URL]")
+            logging.info("[HANDLE URL]")
             url = request.form['url'].strip()
             if not url.startswith(("http://", "https://")):
                 return jsonify({"error": "Invalid URL format. Please include http:// or https://"}), 400
@@ -97,12 +97,12 @@ def analyze():
         return jsonify({"error": "No valid input provided."}), 400
 
     except Exception as e:
-        print("[ANALYZE EXCEPTION]")
+        logging.info("[ANALYZE EXCEPTION]")
         logging.error(f"Error occurred: {e}")
         return jsonify({"error": "Internal server error"}), 500
 
 def extract_knowledge_graph(text):
-    print("[EXTRACT KNOWLEDGE GRAPH]")
+    logging.info("[EXTRACT KNOWLEDGE GRAPH]")
     nlp = spacy.load('en_core_web_sm')
     sentences = sent_tokenize(text)
 
