@@ -57,6 +57,9 @@ def analyze():
     Supports file uploads (.txt, .pdf), plain text, and URL-based extraction.
     """
     try:
+
+        logging.info(f"Received request: {request.form if request.form else request.files}")
+        
         # Handle file upload
         if 'file' in request.files:
             logging.info("[HANDLE FILE]")
@@ -65,13 +68,15 @@ def analyze():
             if file.filename.endswith('.txt'):
                 content = file.read().decode('utf-8')
                 extract_knowledge_graph(content)
-                return jsonify({"type": "file", "content": escape(content)})
+                # return jsonify({"type": "file", "content": escape(content)})
+                return 
             # Process .pdf files
             elif file.filename.endswith('.pdf'):
                 content = extract_text_from_pdf(file)
                 extract_knowledge_graph(content)
                 if content:
-                    return jsonify({"type": "file", "content": escape(content)})
+                    # return jsonify({"type": "file", "content": escape(content)})
+                    return
                 return jsonify({"error": "Failed to extract text from PDF"}), 500
 
         # Handle text input
@@ -79,7 +84,8 @@ def analyze():
             logging.info("[TEXT INPUT]")
             text = request.form['text']
             extract_knowledge_graph(text)
-            return jsonify({"type": "text", "content": escape(text)})
+            # return jsonify({"type": "text", "content": escape(text)})
+            return
 
         # Handle URL input (web scraping)
         elif 'url' in request.form:
@@ -91,7 +97,8 @@ def analyze():
             extracted_text = extract_text_from_url(url)
             extract_knowledge_graph(extracted_text)
             if extracted_text:
-                return jsonify({"type": "url", "content": escape(extracted_text)})
+                # return jsonify({"type": "url", "content": escape(extracted_text)})
+                return
             return jsonify({"error": "Failed to extract text from URL"}), 500
 
         return jsonify({"error": "No valid input provided."}), 400
