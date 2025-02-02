@@ -26,5 +26,5 @@ Our solution’s value lies in its **user-friendly interface** and **broad file 
 ![Architecture Diagram](./static/images/Solution_ArchitectureDiagram.png)
 
 ---
-### Try it Now
-Experience the simplicity and power of our solution by uploading your text data and generating insightful visualizations today!
+### Deployment Issues
+We regret to inform that the website https://smubia25.onrender.com has faced issues with deployment of hte latest GitHub commit, please run the program on local host. All functions and expected output works locally but the deployed website remains at one of the ealier versions of the solution.
