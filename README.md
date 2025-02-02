@@ -27,4 +27,5 @@ Our solution’s value lies in its **user-friendly interface** and **broad file 
 
 ---
 ### Deployment Issues
-We regret to inform that the website https://smubia25.onrender.com has faced issues with deployment of hte latest GitHub commit, please run the program on local host. All functions and expected output works locally but the deployed website remains at one of the ealier versions of the solution.
+We regret to inform that the website https://smubia25.onrender.com has faced issues with deployment of the latest GitHub commit, please run the program on local host. All functions and expected output works locally but the deployed website remains at one of the ealier versions of the solution.
+Apologies for the inconvenience caused.
