@@ -60,7 +60,7 @@ def home():
     # ✅ Delete existing image before saving a new one
     if os.path.exists(image_path):
         os.remove(image_path)
-        
+
     nltk.download('punkt_tab')
     return render_template("index.html", time_now=int(time.time()))
 
@@ -262,4 +262,6 @@ def summarize_text(text, max_chunk_length=800):
 # Run the Flask server
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT not set
+    
+    print(f"Starting Flask server on port {port}...")
     app.run(host="0.0.0.0", port=port, debug=True)
