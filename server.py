@@ -96,9 +96,11 @@ def analyze():
             
             extracted_text = extract_text_from_url(url)
             extract_knowledge_graph(extracted_text)
+            getWordCloud(extracted_text)
+            summary = summarize_text(extracted_text)
             if extracted_text:
                 # return jsonify({"type": "url", "content": escape(extracted_text)})
-                return jsonify({'Summary': "Summary Here"})
+                return jsonify({'Summary': summary})
             return jsonify({"error": "Failed to extract text from URL"}), 500
 
         return jsonify({"error": "No valid input provided."}), 400
@@ -171,6 +173,74 @@ def extract_knowledge_graph(text):
 
     plt.savefig(image_path)
     plt.close()
+
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+from wordcloud import STOPWORDS
+
+def getWordCloud(text):
+
+    # Ensure the directory exists
+    image_path = "static/images/word_cloud.png"
+
+    # ✅ Delete existing image before saving a new one
+    if os.path.exists(image_path):
+        os.remove(image_path)
+
+    wordcloud = WordCloud(
+        width=1000, height=500,
+        background_color='white',
+        stopwords=STOPWORDS,
+        max_words=50,
+        colormap='coolwarm'
+    ).generate(text)
+
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.axis("off")
+
+    plt.savefig(image_path)
+    plt.close()
+
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+model_name = "google/flan-t5-small"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+def summarize_text(text, max_chunk_length=800):
+    sentences = text.split(". ")
+    chunks, current_chunk = [], ""
+
+    for sentence in sentences:
+        if len(current_chunk) + len(sentence) < max_chunk_length:
+            current_chunk += sentence + ". "
+        else:
+            chunks.append(current_chunk.strip())
+            current_chunk = sentence + ". "
+
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+
+    final_summary = []
+    for chunk in chunks:
+        try:
+            prompt = (
+                f"Summarize the content provided clearly and concisely, "
+                f"focusing on the key points and details whilst avoiding redundant information: {chunk}"
+            )
+            inputs = tokenizer(prompt, max_length=1024, return_tensors="pt", truncation=True)
+            summary_ids = model.generate(inputs["input_ids"], max_length=50, min_length=20, num_beams=5, repetition_penalty=3.0, early_stopping=True)
+            summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+            final_summary.append(summary)
+        except Exception as e:
+            final_summary.append(f"Error summarizing chunk: {e}")
+    
+    summary_compiled = " ".join(final_summary)
+    summary = summary_compiled.replace("..", ".").strip()
+    return summary[0].capitalize() + summary[1:] if summary else summary
+
+
 
 # Run the Flask server
 if __name__ == '__main__':
