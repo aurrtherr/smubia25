@@ -57,8 +57,11 @@
         <section id="results-section" class="mt-10 bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-xl font-semibold mb-4">Results</h2>
             <p class="mb-4 text-gray-600">Once analyzed, results will appear here with interactive visualizations and insights.</p>
-            <div id="results" class="p-4 border border-gray-300 rounded-lg text-center text-gray-600">
-                No data uploaded yet. Start by uploading your file, text, or URL.
+            <div id="results" class="p-4 border border-gray-300 rounded-lg text-center text-gray-600 break-words w-full overflow-auto">
+                Analysis Results:
+                <pre class="whitespace-pre-wrap break-words">
+                    No data uploaded yet. Start by uploading your file, text, or URL.
+                </pre>
             </div>
             <img id="kg-image" src="{{ url_for('static', filename='images/entity_network.png') }}" alt="Knowledge Graph">
             <img id="wc-image" src="{{ url_for('static', filename='images/word_cloud.png') }}" alt="Word Cloud">
