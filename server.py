@@ -47,6 +47,20 @@ def extract_text_from_url(url):
     
 @app.route("/")
 def home():
+    # Ensure the directory exists
+    image_path = "static/images/entity_network.png"
+
+    # ✅ Delete existing image before saving a new one
+    if os.path.exists(image_path):
+        os.remove(image_path)
+
+    # Ensure the directory exists
+    image_path = "static/images/word_cloud.png"
+
+    # ✅ Delete existing image before saving a new one
+    if os.path.exists(image_path):
+        os.remove(image_path)
+        
     nltk.download('punkt_tab')
     return render_template("index.html", time_now=int(time.time()))
 
