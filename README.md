@@ -28,4 +28,3 @@ Our solution’s value lies in its **user-friendly interface** and **broad file 
 ---
 ### Try it Now
 Experience the simplicity and power of our solution by uploading your text data and generating insightful visualizations today!
-https://smubia25.onrender.com/
