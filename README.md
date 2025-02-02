@@ -26,9 +26,6 @@ Our solution’s value lies in its **user-friendly interface** and **broad file 
 ![Architecture Diagram](./static/images/Solution_ArchitectureDiagram.png)
 
 ---
-### Deployment Issues
-We regret to inform that the website https://smubia25.onrender.com has faced issues with deployment of the latest GitHub commit, please run the program on local host. All functions and expected output works locally but the deployed website remains at one of the ealier versions of the solution.
-
+### Website Hosting
+The website stated in the proposal is currently hosting version one of our app, which does not display word cloud and summary unlike our local app. Our latest version is still in deployment process as of now.
 To run the code locally, download the dependencies on the requirements following 'requirements.txt' and run "python server.py" in root folder.
-
-Apologies for the inconvenience caused.
