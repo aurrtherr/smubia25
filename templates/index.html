@@ -61,12 +61,17 @@
                 No data uploaded yet. Start by uploading your file, text, or URL.
             </div>
             <img id="kg-image" src="{{ url_for('static', filename='images/entity_network.png') }}" alt="Knowledge Graph">
-            <img id="kg-image" src="{{ url_for('static', filename='images/word_cloud.png') }}" alt="Word Cloud">
-
+            <img id="wc-image" src="{{ url_for('static', filename='images/word_cloud.png') }}" alt="Word Cloud">
             <script>
                 setInterval(() => {
                     let img = document.getElementById("kg-image");
                     img.src = "{{ url_for('static', filename='images/entity_network.png') }}" + "?t=" + new Date().getTime();
+                }, 5000);  // Refresh image every 5 seconds
+            </script>
+            <script>
+                setInterval(() => {
+                    let img = document.getElementById("wc-image");
+                    img.src = "{{ url_for('static', filename='images/word_cloud.png') }}" + "?t=" + new Date().getTime();
                 }, 5000);  // Refresh image every 5 seconds
             </script>
         </section>
@@ -130,7 +135,7 @@
             }
 
             try {
-                const response = await fetch('https://smubia25.onrender.com/analyze', {
+                const response = await fetch('/analyze', {
                     method: 'POST',
                     body: formData
                 });

@@ -68,15 +68,17 @@ def analyze():
             if file.filename.endswith('.txt'):
                 content = file.read().decode('utf-8')
                 extract_knowledge_graph(content)
+                summary = summarize_text(content)
                 # return jsonify({"type": "file", "content": escape(content)})
-                return jsonify({'Summary': "Summary Here"})
+                return jsonify({'Summary': summary})
             # Process .pdf files
             elif file.filename.endswith('.pdf'):
                 content = extract_text_from_pdf(file)
                 extract_knowledge_graph(content)
+                summary = summarize_text(content)
                 if content:
                     # return jsonify({"type": "file", "content": escape(content)})
-                    return jsonify({'Summary': "Summary Here"})
+                    return jsonify({'Summary': summary})
                 return jsonify({"error": "Failed to extract text from PDF"}), 500
 
         # Handle text input
@@ -84,8 +86,9 @@ def analyze():
             logging.info("[TEXT INPUT]")
             text = request.form['text']
             extract_knowledge_graph(text)
+            summary = summarize_text(text)
             # return jsonify({"type": "text", "content": escape(text)})
-            return jsonify({'Summary': "Summary Here"})
+            return jsonify({'Summary': summary})
 
         # Handle URL input (web scraping)
         elif 'url' in request.form:
@@ -244,5 +247,5 @@ def summarize_text(text, max_chunk_length=800):
 
 # Run the Flask server
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT not set
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT not set
+    app.run(host="0.0.0.0", port=port)
