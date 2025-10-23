@@ -29,3 +29,4 @@ Our solution’s value lies in its **user-friendly interface** and **broad file 
 ### Website Hosting
 The website stated in the proposal is currently hosting version one of our app, which does not display word cloud and summary unlike our local app. Our latest version is still in deployment process as of now.
 To run the code locally, download the dependencies on the requirements following 'requirements.txt' and run "python server.py" in root folder.
+Website Hosting: smubia25.onrender.com
